@@ -274,35 +274,90 @@
 
     .step li { margin-bottom: 4px; }
 
-    /* ---- Guide tabs ---- */
-    .guide-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
+    /* ---- Process flow ---- */
+    .process {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-width: 720px;
+      margin: 0 auto;
     }
 
-    .guide-card {
-      background: var(--light-blush);
+    .process-step {
+      position: relative;
+      background: var(--white);
       border-radius: var(--radius);
-      padding: 24px;
-      border: 1px solid rgba(139, 69, 19, 0.1);
+      padding: 32px 28px;
+      box-shadow: var(--shadow);
+      border-right: 5px solid var(--warm-amber);
     }
 
-    .guide-card h3 {
-      font-size: 1.05rem;
-      margin-bottom: 12px;
+    .process-step:nth-child(2) { border-right-color: var(--soft-sage); }
+    .process-step:nth-child(3) { border-right-color: var(--deep-terra); }
+
+    .process-connector {
+      display: flex;
+      justify-content: center;
+      padding: 8px 0;
+      color: var(--warm-amber);
+      font-size: 1.6rem;
+      opacity: 0.7;
+    }
+
+    .process-header {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 16px;
+      margin-bottom: 16px;
     }
 
-    .guide-card ol {
+    .process-num {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--deep-terra), var(--rich-mahogany));
+      color: var(--white);
+      font-weight: 900;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .process-title {
+      font-size: 1.25rem;
+      margin: 0;
+    }
+
+    .process-desc {
+      color: var(--text-mid);
+      font-size: 0.98rem;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    .process-actions {
+      background: var(--light-blush);
+      border-radius: 12px;
+      padding: 16px 20px;
+    }
+
+    .process-actions strong {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--deep-terra);
+      margin-bottom: 10px;
+    }
+
+    .process-actions ol {
       padding-right: 20px;
       color: var(--text-mid);
       font-size: 0.93rem;
     }
 
-    .guide-card li { margin-bottom: 8px; }
+    .process-actions li { margin-bottom: 8px; }
+    .process-actions li:last-child { margin-bottom: 0; }
 
     /* ---- Tech note ---- */
     .note {
@@ -429,116 +484,108 @@
   </section>
 
   <section class="section" id="start" style="padding-top:0;">
-    <h2 class="section-title">התחלה מהירה</h2>
-    <p class="section-sub">ארבעה צעדים פשוטים לפני השימוש הראשון</p>
+    <h2 class="section-title">איך מתחילים?</h2>
+    <p class="section-sub">לחצו על «כניסה לאפליקציה» — אין צורך בהתקנה, האפליקציה נפתחת בדפדפן</p>
 
-    <div class="steps">
+    <div class="steps" style="max-width:640px;margin:0 auto;">
       <div class="step">
-        <div class="step-num">1</div>
+        <div class="step-num">→</div>
         <div>
-          <h3>פתחו את האפליקציה</h3>
-          <p>לחצו על כפתור <strong>«כניסה לאפליקציה»</strong> בראש הדף. האפליקציה רצה ב-Google Apps Script — אין צורך בהתקנה.</p>
+          <h3>פתיחת האפליקציה</h3>
+          <p>האפליקציה רצה ב-Google Apps Script. אם המשפחה ריקה בפעם הראשונה — לחצו <strong>«טען דוגמה»</strong> בדף הבית, או התחילו ישר מהמדריך למטה.</p>
         </div>
       </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <div>
-          <h3>אתחול ראשוני (פעם אחת)</h3>
-          <p>אם המשפחה ריקה, לחצו על <strong>«טען דוגמה»</strong> בדף הבית כדי ליצור מסד נתונים ולהוסיף נתוני דוגמה, או הוסיפו בני משפחה ידנית.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <div>
-          <h3>בנו את העץ</h3>
-          <p>הוסיפו בני משפחה עם שם, תאריך לידה, תמונה וקשרים (אבא, אמא, בן/בת זוג). העץ מתעדכן אוטומטית.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">4</div>
-        <div>
-          <h3>גלו ושחקו</h3>
-          <p>לחצו על אדם בעץ לפרופיל המלא, או היכנסו למשחק המשפחתי ובחרו רמת קושי ומספר שאלות.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="note">
-      <h3>💡 שימו לב</h3>
-      <p>
-        הנתונים נשמרים ב-Google Sheets של בעל האפליקציה. כל מי שיש לו את הקישור יכול לצפות ולערוך
-        (אזור הניהול מוגן בסיסמה). אם ביצעתם שינויים בקוד — יש לפרוס <strong>גרסה חדשה</strong>
-        ב-Google Apps Script (<code>Deploy → New deployment</code>).
-      </p>
     </div>
   </section>
 
   <section class="section" id="guide">
-    <h2 class="section-title">מדריך שימוש מפורט</h2>
-    <p class="section-sub">הוראות לכל חלק באפליקציה</p>
+    <h2 class="section-title">מדריך למשתמש — 3 שלבים</h2>
+    <p class="section-sub">עקבו אחרי התהליך לפי הסדר: הכרת המשפחה → הוספה → משחק</p>
 
-    <div class="guide-grid">
-      <div class="guide-card">
-        <h3>🏠 דף הבית</h3>
-        <ol>
-          <li>צפו בסיכום: בני משפחה, דורות וערים.</li>
-          <li>גלו ימי הולדת קרובים.</li>
-          <li>בחרו: אילן יוחסין, משחק, הוספת בן משפחה, דירוג או סטטיסטיקות.</li>
-          <li>לחצו על נתון בסטטיסטיקות לראות רשימת בני משפחה.</li>
-        </ol>
-      </div>
+    <div class="process">
 
-      <div class="guide-card">
-        <h3>🌳 אילן יוחסין</h3>
-        <ol>
-          <li>גררו את העץ כדי לנווט; השתמשו בכפתורי זום (+ / −).</li>
-          <li>לחצו על כרטיס אדם לפתיחת פאנל מידע מהיר.</li>
-          <li>לחצו «פרופיל מלא» לדף הפרופיל המלא.</li>
-          <li>חפשו לפי שם בשדה החיפוש.</li>
-          <li>«צור בן משפחה» — הוספת אדם חדש לעץ.</li>
-        </ol>
-      </div>
+      <article class="process-step">
+        <div class="process-header">
+          <div class="process-num">1</div>
+          <h3 class="process-title">🌳 הסתכלות על העץ והכרת המשפחה</h3>
+        </div>
+        <p class="process-desc">
+          התחילו מאילן היוחסין — זה המרכז של האפליקציה. כאן רואים את כל בני המשפחה, הקשרים ביניהם
+          והדורות. המטרה: להכיר את המבנה המשפחתי לפני שמוסיפים או משחקים.
+        </p>
+        <div class="process-actions">
+          <strong>מה עושים?</strong>
+          <ol>
+            <li>בדף הבית לחצו על <strong>«אילן יוחסין»</strong>.</li>
+            <li>גררו את העץ כדי לנווט; השתמשו בכפתורי <strong>+ / −</strong> לזום.</li>
+            <li>לחצו על כרטיס של בן משפחה — ייפתח פאנל עם פרטים מהירים.</li>
+            <li>לחצו <strong>«פרופיל מלא»</strong> לראות את כל הפרטים: גיל, עיר, תחביבים, קשרים.</li>
+            <li>עברו בין פרופילים על ידי לחיצה על קרובי משפחה.</li>
+            <li>השתמשו ב<strong>חיפוש</strong> למציאת אדם לפי שם.</li>
+          </ol>
+        </div>
+      </article>
 
-      <div class="guide-card">
-        <h3>👤 פרופיל</h3>
-        <ol>
-          <li>צפו בכל הפרטים: תחביבים, תיאור, קשרי משפחה.</li>
-          <li>לחצו על קרוב משפחה לעבור לפרופיל שלו.</li>
-          <li>כפתור ✏️ למטה — עריכת פרטים, תמונה וקשרים.</li>
-          <li>«חזרה» — חוזר למסך הקודם.</li>
-        </ol>
-      </div>
+      <div class="process-connector" aria-hidden="true">↓</div>
 
-      <div class="guide-card">
-        <h3>🎮 משחק משפחתי</h3>
-        <ol>
-          <li>הזינו שם שחקן ובחרו רמת קושי (קל / בינוני / קשה).</li>
-          <li>בחרו 5, 10 או 15 שאלות.</li>
-          <li>ענו לפני שהטיימר נגמר — תשובה מהירה מוסיפה נקודות.</li>
-          <li>3 תשובות נכונות ברצף = בונוס נקודות.</li>
-          <li>בסיום — צפו בדירוג המשפחתי.</li>
-        </ol>
-      </div>
+      <article class="process-step">
+        <div class="process-header">
+          <div class="process-num">2</div>
+          <h3 class="process-title">➕ יצירת בן משפחה</h3>
+        </div>
+        <p class="process-desc">
+          אחרי שהכרתם את העץ — הגיע הזמן להרחיב אותו. אפשר להוסיף בן משפחה מהדף הראשי
+          או ישירות מתוך אילן היוחסין. ככל שתמלאו יותר פרטים (תמונה, תחביבים, קשרים) —
+          המשחק יהיה מעניין יותר.
+        </p>
+        <div class="process-actions">
+          <strong>מה עושים?</strong>
+          <ol>
+            <li>בדף הבית לחצו <strong>«הוסף בן משפחה»</strong>, או באילן היוחסין — <strong>«צור בן משפחה»</strong>.</li>
+            <li>מלאו <strong>שם פרטי</strong> ו<strong>שם משפחה</strong> (שדות חובה).</li>
+            <li>הוסיפו תאריך לידה, מין, עיר, עיסוק ותחביבים (מופרדים בפסיק).</li>
+            <li>העלו <strong>תמונה</strong> מהמכשיר — כך יופיעו תמונות גם במשחק.</li>
+            <li>בחרו <strong>אבא, אמא</strong> או <strong>בן/בת זוג</strong> מהרשימה — העץ יתעדכן אוטומטית.</li>
+            <li>לחצו <strong>שמור</strong> — האדם החדש יופיע באילן ובפרופילים.</li>
+            <li>לעריכה מאוחר יותר: פתחו פרופיל ולחצו על כפתור ✏️.</li>
+          </ol>
+        </div>
+      </article>
 
-      <div class="guide-card">
-        <h3>➕ הוספת בן משפחה</h3>
-        <ol>
-          <li>מלאו שם פרטי ושם משפחה (חובה).</li>
-          <li>הוסיפו תאריך לידה, מין, עיר, עיסוק ותחביבים.</li>
-          <li>העלו תמונה מהמכשיר או הדביקו קישור.</li>
-          <li>בחרו אבא, אמא או בן/בת זוג אם רלוונטי.</li>
-        </ol>
-      </div>
+      <div class="process-connector" aria-hidden="true">↓</div>
 
-      <div class="guide-card">
-        <h3>⚙️ ניהול</h3>
-        <ol>
-          <li>לחצו «ניהול» בדף הבית והזינו סיסמה.</li>
-          <li>הוסיפו אירועים משפחתיים (חתונה, יום הולדת).</li>
-          <li>חפשו בני משפחה לפי שם.</li>
-          <li>רעננו סטטיסטיקות משחק או אפסו ניקוד.</li>
-        </ol>
-      </div>
+      <article class="process-step">
+        <div class="process-header">
+          <div class="process-num">3</div>
+          <h3 class="process-title">🎮 משחק</h3>
+        </div>
+        <p class="process-desc">
+          עכשיו כשהעץ מלא — בדקו כמה טוב אתם מכירים את המשפחה! המשחק שואל על תמונות,
+          קשרים, ערים, מקצועות ועוד. ככל שיש יותר בני משפחה ופרטים — השאלות מגוונות יותר.
+        </p>
+        <div class="process-actions">
+          <strong>מה עושים?</strong>
+          <ol>
+            <li>בדף הבית לחצו <strong>«משחק משפחתי»</strong>.</li>
+            <li>הזינו <strong>שם שחקן</strong> (יופיע בדירוג).</li>
+            <li>בחרו <strong>רמת קושי</strong>: קל (זיהוי והורים), בינוני (קשרים ועיר), קשה (נינים, דודים, פחות זמן).</li>
+            <li>בחרו <strong>מספר שאלות</strong>: 5, 10 או 15.</li>
+            <li>לחצו <strong>«התחל משחק»</strong> וענו לפני שהטיימר נגמר — תשובה מהירה = נקודות בונוס.</li>
+            <li>3 תשובות נכונות ברצף מעניקות <strong>+5 נקודות</strong> נוספות.</li>
+            <li>בסיום — צפו בתוצאה וב<strong>«דירוג משפחתי»</strong> בדף הבית.</li>
+          </ol>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="note">
+      <h3>💡 טיפים נוספים</h3>
+      <p>
+        בדף הבית תמצאו גם <strong>סטטיסטיקות</strong> (לחצו על נתון לראות רשימת בני משפחה),
+        <strong>ימי הולדת קרובים</strong> ו<strong>אירועים משפחתיים</strong>.
+        אזור <strong>ניהול</strong> (⚙️) מוגן בסיסמה — לשימוש מנהל המשפחה בלבד.
+      </p>
     </div>
   </section>
 
@@ -554,8 +601,7 @@
   </footer>
 
   <script>
-    // 👇 החלף בכתובת האפליקציה שלך (Google Apps Script /exec URL)
-    var APP_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+    var APP_URL = 'https://script.google.com/macros/s/AKfycbx5OKj61eJ6ARpDvT8wNW55DrZpw55TeB47RF4uxaj3YJpxC2JnayxDoHdWVyho2MvHyg/exec';
 
     document.querySelectorAll('#nav-app-link, #hero-app-link, #footer-app-link').forEach(function(el) {
       el.href = APP_URL;
