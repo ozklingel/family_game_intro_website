@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="שורשים משפחתיים — אפליקציה לבניית אילן יוחסין, פרופילים משפחתיים ומשחק שמחזק את הקשר בין בני המשפחה.">
+  <title>שורשים משפחתיים — אילן יוחסין ומשחק משפחתי</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;900&family=Frank+Ruhl+Libre:wght@700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --warm-cream: #FBF7F0;
+      --deep-terra: #8B4513;
+      --warm-amber: #D4A853;
+      --soft-sage: #7A9E7E;
+      --rich-mahogany: #6B2D0F;
+      --light-blush: #F5E6D3;
+      --text-dark: #2C1810;
+      --text-mid: #5C3D2E;
+      --text-light: #8B6B5A;
+      --white: #FFFFFF;
+      --shadow: 0 4px 24px rgba(107, 45, 15, 0.12);
+      --radius: 20px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Heebo', 'Arial Hebrew', sans-serif;
+      background: var(--warm-cream);
+      color: var(--text-dark);
+      line-height: 1.65;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Frank Ruhl Libre', serif;
+      line-height: 1.25;
+    }
+
+    a { color: inherit; }
+
+    /* ---- Nav ---- */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: linear-gradient(135deg, var(--rich-mahogany), var(--deep-terra));
+      color: var(--white);
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.15);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: rgba(255,255,255,0.9);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: opacity 0.2s;
+    }
+
+    .nav-links a:hover { opacity: 0.75; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 700;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(107, 45, 15, 0.25);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--warm-amber), #c4923f);
+      color: var(--text-dark);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid rgba(255,255,255,0.6);
+    }
+
+    .btn-outline:hover { background: rgba(255,255,255,0.1); }
+
+    .btn-lg { padding: 16px 32px; font-size: 1.1rem; }
+
+    /* ---- Hero ---- */
+    .hero {
+      background: linear-gradient(160deg, var(--rich-mahogany) 0%, var(--deep-terra) 55%, var(--warm-amber) 100%);
+      color: var(--white);
+      padding: 80px 24px 100px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .hero-icon {
+      font-size: 4.5rem;
+      display: block;
+      margin-bottom: 20px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 6vw, 3.2rem);
+      color: var(--white);
+      margin-bottom: 16px;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.2);
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      opacity: 0.92;
+      max-width: 560px;
+      margin: 0 auto 32px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ---- Sections ---- */
+    .section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 64px 24px;
+    }
+
+    .section-title {
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .section-sub {
+      text-align: center;
+      color: var(--text-light);
+      max-width: 560px;
+      margin: 0 auto 40px;
+      font-size: 1.02rem;
+    }
+
+    /* ---- Features ---- */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .feature-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      box-shadow: var(--shadow);
+      border-top: 4px solid var(--warm-amber);
+      transition: transform 0.2s;
+    }
+
+    .feature-card:hover { transform: translateY(-4px); }
+
+    .feature-icon { font-size: 2.2rem; margin-bottom: 12px; }
+
+    .feature-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      color: var(--text-mid);
+      font-size: 0.95rem;
+    }
+
+    /* ---- Steps ---- */
+    .steps {
+      display: grid;
+      gap: 16px;
+    }
+
+    .step {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .step-num {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--deep-terra), var(--rich-mahogany));
+      color: var(--white);
+      font-weight: 900;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .step h3 {
+      font-size: 1.05rem;
+      margin-bottom: 6px;
+    }
+
+    .step p {
+      color: var(--text-mid);
+      font-size: 0.95rem;
+    }
+
+    .step ul {
+      margin-top: 8px;
+      padding-right: 20px;
+      color: var(--text-mid);
+      font-size: 0.93rem;
+    }
+
+    .step li { margin-bottom: 4px; }
+
+    /* ---- Guide tabs ---- */
+    .guide-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .guide-card {
+      background: var(--light-blush);
+      border-radius: var(--radius);
+      padding: 24px;
+      border: 1px solid rgba(139, 69, 19, 0.1);
+    }
+
+    .guide-card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .guide-card ol {
+      padding-right: 20px;
+      color: var(--text-mid);
+      font-size: 0.93rem;
+    }
+
+    .guide-card li { margin-bottom: 8px; }
+
+    /* ---- Tech note ---- */
+    .note {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      box-shadow: var(--shadow);
+      border-right: 4px solid var(--soft-sage);
+      margin-top: 32px;
+    }
+
+    .note h3 {
+      font-size: 1rem;
+      margin-bottom: 8px;
+      color: var(--deep-terra);
+    }
+
+    .note p, .note code {
+      font-size: 0.92rem;
+      color: var(--text-mid);
+    }
+
+    .note code {
+      background: var(--light-blush);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-family: 'Consolas', monospace;
+      direction: ltr;
+      display: inline-block;
+    }
+
+    /* ---- Footer ---- */
+    .footer {
+      background: var(--rich-mahogany);
+      color: rgba(255,255,255,0.85);
+      text-align: center;
+      padding: 40px 24px;
+      font-size: 0.9rem;
+    }
+
+    .footer a {
+      color: var(--warm-amber);
+      text-decoration: none;
+    }
+
+    .footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 640px) {
+      .nav-links a:not(.btn) { display: none; }
+      .hero { padding: 60px 20px 80px; }
+      .step { flex-direction: column; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-logo">
+      <span>🌳</span>
+      <span>שורשים משפחתיים</span>
+    </div>
+    <div class="nav-links">
+      <a href="#about">על האפליקציה</a>
+      <a href="#guide">מדריך שימוש</a>
+      <a href="#start">התחלה</a>
+      <a href="#" id="nav-app-link" class="btn btn-primary" style="padding:8px 18px;font-size:0.9rem;">פתח אפליקציה</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <span class="hero-icon">🌳</span>
+      <h1>שורשים משפחתיים</h1>
+      <p>
+        אפליקציית אילן יוחסין אינטראקטיבית לכל המשפחה — בנו את העץ, גלו פרופילים מלאים,
+        שחקו במשחק שמחזק את ההיכרות, ושמרו את הסיפור המשפחתי במקום אחד.
+      </p>
+      <div class="hero-actions">
+        <a href="#" id="hero-app-link" class="btn btn-primary btn-lg">▶ כניסה לאפליקציה</a>
+        <a href="#guide" class="btn btn-outline btn-lg">📖 איך משתמשים?</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" id="about">
+    <h2 class="section-title">מה האפליקציה עושה?</h2>
+    <p class="section-sub">
+      שורשים משפחתיים היא אפליקציית ווב (Google Apps Script) שמרכזת את כל המידע על בני המשפחה
+      ומאפשרת לחקור, לערוך ולשחק — הכל בעברית ובממשק נוח.
+    </p>
+
+    <div class="features">
+      <article class="feature-card">
+        <div class="feature-icon">🌳</div>
+        <h3>אילן יוחסין</h3>
+        <p>עץ משפחתי ויזואלי עם תמונות, קשרי הורים–ילדים ובני זוג. גרירה, זום וחיפוש לפי שם.</p>
+      </article>
+      <article class="feature-card">
+        <div class="feature-icon">👤</div>
+        <h3>פרופיל אישי</h3>
+        <p>פרטים מלאים על כל בן משפחה: גיל, עיר, עיסוק, תחביבים, תיאור, קשרי משפחה ותמונה.</p>
+      </article>
+      <article class="feature-card">
+        <div class="feature-icon">🎮</div>
+        <h3>משחק משפחתי</h3>
+        <p>שאלות על זיהוי, קשרים, נינים, ערים ומקצועות — ברמות קושי שונות, עם טיימר וניקוד.</p>
+      </article>
+      <article class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>סטטיסטיקות</h3>
+        <p>סיכום משפחתי: מספר בני משפחה, דורות, ערים, תחביבים נפוצים וימי הולדת קרובים.</p>
+      </article>
+      <article class="feature-card">
+        <div class="feature-icon">➕</div>
+        <h3>הוספת בני משפחה</h3>
+        <p>הוסיפו אנשים חדשים ישירות מהדף הראשי או מאילן היוחסין, כולל קשרים להורים ולבן/בת זוג.</p>
+      </article>
+      <article class="feature-card">
+        <div class="feature-icon">⚙️</div>
+        <h3>ניהול</h3>
+        <p>אזור ניהול מוגן בסיסמה: אירועים משפחתיים, חיפוש חברים, סטטיסטיקות משחק ואיפוס ניקוד.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="start" style="padding-top:0;">
+    <h2 class="section-title">התחלה מהירה</h2>
+    <p class="section-sub">ארבעה צעדים פשוטים לפני השימוש הראשון</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h3>פתחו את האפליקציה</h3>
+          <p>לחצו על כפתור <strong>«כניסה לאפליקציה»</strong> בראש הדף. האפליקציה רצה ב-Google Apps Script — אין צורך בהתקנה.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h3>אתחול ראשוני (פעם אחת)</h3>
+          <p>אם המשפחה ריקה, לחצו על <strong>«טען דוגמה»</strong> בדף הבית כדי ליצור מסד נתונים ולהוסיף נתוני דוגמה, או הוסיפו בני משפחה ידנית.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h3>בנו את העץ</h3>
+          <p>הוסיפו בני משפחה עם שם, תאריך לידה, תמונה וקשרים (אבא, אמא, בן/בת זוג). העץ מתעדכן אוטומטית.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div>
+          <h3>גלו ושחקו</h3>
+          <p>לחצו על אדם בעץ לפרופיל המלא, או היכנסו למשחק המשפחתי ובחרו רמת קושי ומספר שאלות.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="note">
+      <h3>💡 שימו לב</h3>
+      <p>
+        הנתונים נשמרים ב-Google Sheets של בעל האפליקציה. כל מי שיש לו את הקישור יכול לצפות ולערוך
+        (אזור הניהול מוגן בסיסמה). אם ביצעתם שינויים בקוד — יש לפרוס <strong>גרסה חדשה</strong>
+        ב-Google Apps Script (<code>Deploy → New deployment</code>).
+      </p>
+    </div>
+  </section>
+
+  <section class="section" id="guide">
+    <h2 class="section-title">מדריך שימוש מפורט</h2>
+    <p class="section-sub">הוראות לכל חלק באפליקציה</p>
+
+    <div class="guide-grid">
+      <div class="guide-card">
+        <h3>🏠 דף הבית</h3>
+        <ol>
+          <li>צפו בסיכום: בני משפחה, דורות וערים.</li>
+          <li>גלו ימי הולדת קרובים.</li>
+          <li>בחרו: אילן יוחסין, משחק, הוספת בן משפחה, דירוג או סטטיסטיקות.</li>
+          <li>לחצו על נתון בסטטיסטיקות לראות רשימת בני משפחה.</li>
+        </ol>
+      </div>
+
+      <div class="guide-card">
+        <h3>🌳 אילן יוחסין</h3>
+        <ol>
+          <li>גררו את העץ כדי לנווט; השתמשו בכפתורי זום (+ / −).</li>
+          <li>לחצו על כרטיס אדם לפתיחת פאנל מידע מהיר.</li>
+          <li>לחצו «פרופיל מלא» לדף הפרופיל המלא.</li>
+          <li>חפשו לפי שם בשדה החיפוש.</li>
+          <li>«צור בן משפחה» — הוספת אדם חדש לעץ.</li>
+        </ol>
+      </div>
+
+      <div class="guide-card">
+        <h3>👤 פרופיל</h3>
+        <ol>
+          <li>צפו בכל הפרטים: תחביבים, תיאור, קשרי משפחה.</li>
+          <li>לחצו על קרוב משפחה לעבור לפרופיל שלו.</li>
+          <li>כפתור ✏️ למטה — עריכת פרטים, תמונה וקשרים.</li>
+          <li>«חזרה» — חוזר למסך הקודם.</li>
+        </ol>
+      </div>
+
+      <div class="guide-card">
+        <h3>🎮 משחק משפחתי</h3>
+        <ol>
+          <li>הזינו שם שחקן ובחרו רמת קושי (קל / בינוני / קשה).</li>
+          <li>בחרו 5, 10 או 15 שאלות.</li>
+          <li>ענו לפני שהטיימר נגמר — תשובה מהירה מוסיפה נקודות.</li>
+          <li>3 תשובות נכונות ברצף = בונוס נקודות.</li>
+          <li>בסיום — צפו בדירוג המשפחתי.</li>
+        </ol>
+      </div>
+
+      <div class="guide-card">
+        <h3>➕ הוספת בן משפחה</h3>
+        <ol>
+          <li>מלאו שם פרטי ושם משפחה (חובה).</li>
+          <li>הוסיפו תאריך לידה, מין, עיר, עיסוק ותחביבים.</li>
+          <li>העלו תמונה מהמכשיר או הדביקו קישור.</li>
+          <li>בחרו אבא, אמא או בן/בת זוג אם רלוונטי.</li>
+        </ol>
+      </div>
+
+      <div class="guide-card">
+        <h3>⚙️ ניהול</h3>
+        <ol>
+          <li>לחצו «ניהול» בדף הבית והזינו סיסמה.</li>
+          <li>הוסיפו אירועים משפחתיים (חתונה, יום הולדת).</li>
+          <li>חפשו בני משפחה לפי שם.</li>
+          <li>רעננו סטטיסטיקות משחק או אפסו ניקוד.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0;text-align:center;">
+    <h2 class="section-title">מוכנים להתחיל?</h2>
+    <p class="section-sub">פתחו את האפליקציה ובנו את אילן המשפחה שלכם</p>
+    <a href="#" id="footer-app-link" class="btn btn-primary btn-lg">🌳 כניסה לאפליקציה</a>
+  </section>
+
+  <footer class="footer">
+    <p>🌳 <strong>שורשים משפחתיים</strong> — אפליקציית אילן יוחסין ומשחק משפחתי</p>
+    <p style="margin-top:8px;opacity:0.75;">נבנה עם Google Apps Script · קוד פתוח ב-GitHub</p>
+  </footer>
+
+  <script>
+    // 👇 החלף בכתובת האפליקציה שלך (Google Apps Script /exec URL)
+    var APP_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+
+    document.querySelectorAll('#nav-app-link, #hero-app-link, #footer-app-link').forEach(function(el) {
+      el.href = APP_URL;
+      el.target = '_blank';
+      el.rel = 'noopener noreferrer';
+    });
+  </script>
+</body>
+</html>
